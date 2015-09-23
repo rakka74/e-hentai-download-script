@@ -1,0 +1,83 @@
+//Dorothy2
+//caption=E-Hentai
+//version=0.1
+//hint=irv list
+//match=http://g.e-hentai.org/[^g]
+//ResponseMatch=
+//author=xor
+//path=program
+//priority=500
+//extension=HttpRequest,HttpResponse
+//end
+function HttpRequest(){
+
+	var wait = 60000;	//sec
+wait=90000;
+	var limit_wait=3;	//min
+
+	//debug=true;
+	println('wait-'+wait/1000+'sec');
+	sleep(wait);
+	common_load('download','test_download');
+	var url=new URL(urlinfo.url);
+	var http=download(url.url,false,{'Cookie':''});
+	if(http.responseHeader.code!=200){
+		return retry('error--->'+http.responseHeader.code);
+	}
+	
+	var cookie=http.responseHeader.cookie.data;
+
+
+
+	if(!http.data.match('<a href="[^"]+"><img id="[^"]+" src="([^"]+)" alt="[^"]+" title="([^"]+)" style="(margin:1px;?|border:0;?|height:\d+px;?|clear:both;?|width:\d+px;?)+" /></a>')){
+		println('error');
+		exit();
+	}
+	var url2=new URL(RegExp.$1);
+	if(item.filename==''){
+		Dorothy.fileName=RegExp.$2;
+	}
+	urlinfo.url=url2.url;
+	headers.host=url2.host;
+	headers.Cookie=cookie;
+
+
+}
+,
+function HttpResponse(){
+	println('dorothy2C');
+	if(headers.hasKey('content-disposition')){
+		var flg=false;
+		switch (headers['content-disposition']){
+			case 'inline; filename="403s.gif"'		:flg=true;
+			case 'inline; filename="403.gif"'		:flg=true;
+			case 'inline; filename="509s.gif"'		:flg=true;
+			case 'inline; filename="509.gif"'		:flg=true;
+			case 'inline; filename="cookiemonster.gif"'	:flg=true;
+		}
+
+		if(flg){
+			urlinfo.StatusCode = 509;
+			//exit();
+			println('””””””‚c‚n‚v‚m‚k‚n‚`‚c@‚k‚h‚l‚h‚s””””””');
+			var wait=3;
+			println('wait-'+wait+'min');
+			sleep(wait*60*1000);
+			return true;
+		}
+	}
+
+
+	if(headers.hasKey('content-length')){
+		if(urlinfo.StatusCode==200 && headers['content-length']==0){
+			println('size error');
+			var wait=3;
+			sleep(wait*60*1000);
+			urlinfo.StatusCode = 500;
+			return true;
+		}
+	}
+
+}
+,
+HttpRequest;
