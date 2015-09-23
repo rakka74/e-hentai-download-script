@@ -40,7 +40,7 @@ wait=1000*30;//90000;
 	println(imgSrc);
 	var url2=new URL(imgSrc);
 //http://37.48.81.80/ehg/image.php?f=0bd6d69a1593025fa31f03827cb7a0a9c8b9e42d-194889-1024-576-jpg&amp;t=400829-0dce82aa92334a2c5cbc55e532a3dd2b8f44fe9b&amp;n=ev_sae011a.jpg
-//ã®å ´åˆã€æœ€å¾Œã® / ä»¥ä¸‹ã§ã¯ãƒ€ãƒ¡
+//‚Ìê‡AÅŒã‚Ì / ˆÈ‰º‚Å‚Íƒ_ƒ
 	var url2_=imgSrc;
 	if(!url2_.match('image.php.+n=(.+)')){
 		if(!url2_.match('.+/(.+)')){
@@ -81,7 +81,7 @@ function HttpResponse(){
 		if(flg){
 			urlinfo.StatusCode = 509;
 			//exit();
-			println('ï¼ƒï¼ƒï¼ƒï¼ƒï¼ƒï¼ƒï¼¤ï¼¯ï¼·ï¼®ï¼¬ï¼¯ï¼¡ï¼¤ã€€ï¼¬ï¼©ï¼­ï¼©ï¼´ï¼ƒï¼ƒï¼ƒï¼ƒï¼ƒï¼ƒ');
+			println('””””””‚c‚n‚v‚m‚k‚n‚`‚c@‚k‚h‚l‚h‚s””””””');
 			var wait=3;
 			println('wait-'+wait+'min');
 			sleep(wait*60*1000);
